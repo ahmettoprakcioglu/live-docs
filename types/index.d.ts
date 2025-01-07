@@ -78,3 +78,9 @@ declare type AddDocumentBtnProps = {
 declare type DeleteModalProps = { roomId: string };
 
 declare type ThreadWrapperProps = { thread: ThreadData<BaseMetadata> };
+
+declare type RoomDocuments = {
+  id: string,
+  metadata: RoomMetadata,
+  createdAt: string
+}
