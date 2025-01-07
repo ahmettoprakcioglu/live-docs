@@ -1,47 +1,42 @@
-import CollaborativeRoom from "../../../../components/CollaborativeRoom";
+import CollaborativeRoom from "@/components/CollaborativeRoom"
 import { getDocument } from "@/lib/actions/room.actions";
 import { getClerkUsers } from "@/lib/actions/user.actions";
-import { currentUser } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation";
 
-interface PageProps {
-  params: {
-    id: string;
-  }
-}
-
-const Document = async ({ params }: PageProps) => {
-  const { id } = params;
-  
+const Document = async ({ params: { id } }: SearchParamProps) => {
   const clerkUser = await currentUser();
-  if (!clerkUser) redirect(process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL as string);
+  if(!clerkUser) redirect('/sign-in');
 
   const room = await getDocument({
     roomId: id,
-    userId: clerkUser.emailAddresses[0].emailAddress
-  })
-  if (!room) redirect('/');
+    userId: clerkUser.emailAddresses[0].emailAddress,
+  });
+
+  if(!room) redirect('/');
 
   const userIds = Object.keys(room.usersAccesses);
   const users = await getClerkUsers({ userIds });
 
-  const userData = users.map((user: User) => ({
+  const usersData = users.map((user: User) => ({
     ...user,
-    type: room.usersAccesses[user.email].includes('room:write') ? 'editor' : 'viewer'
-  }));
+    userType: room.usersAccesses[user.email]?.includes('room:write')
+      ? 'editor'
+      : 'viewer'
+  }))
 
   const currentUserType = room.usersAccesses[clerkUser.emailAddresses[0].emailAddress]?.includes('room:write') ? 'editor' : 'viewer';
 
   return (
     <main className="flex w-full flex-col items-center">
-      <CollaborativeRoom
+      <CollaborativeRoom 
         roomId={id}
         roomMetadata={room.metadata}
-        users={userData}
+        users={usersData}
         currentUserType={currentUserType}
       />
     </main>
   )
 }
 
-export default Document;
+export default Document

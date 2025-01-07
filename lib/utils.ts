@@ -5,18 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const parseStringify = (value: unknown) => JSON.parse(JSON.stringify(value));
+export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
 
 export const getAccessType = (userType: UserType) => {
   switch (userType) {
-  case 'creator':
-    return ['room:write'];
-  case 'editor':
-    return ['room:write'];
-  case 'viewer':
-    return ['room:read', 'room:presence:write'];
-  default:
-    return ['room:read', 'room:presence:write'];
+    case 'creator':
+      return ['room:write'];
+    case 'editor':
+      return ['room:write'];
+    case 'viewer':
+      return ['room:read', 'room:presence:write'];
+    default:
+      return ['room:read', 'room:presence:write'];
   }
 };
 
@@ -32,16 +32,16 @@ export const dateConverter = (timestamp: string): string => {
   const diffInDays: number = diffInHours / 24;
 
   switch (true) {
-  case diffInDays > 7:
-    return `${Math.floor(diffInDays / 7)} weeks ago`;
-  case diffInDays >= 1 && diffInDays <= 7:
-    return `${Math.floor(diffInDays)} days ago`;
-  case diffInHours >= 1:
-    return `${Math.floor(diffInHours)} hours ago`;
-  case diffInMinutes >= 1:
-    return `${Math.floor(diffInMinutes)} minutes ago`;
-  default:
-    return 'Just now';
+    case diffInDays > 7:
+      return `${Math.floor(diffInDays / 7)} weeks ago`;
+    case diffInDays >= 1 && diffInDays <= 7:
+      return `${Math.floor(diffInDays)} days ago`;
+    case diffInHours >= 1:
+      return `${Math.floor(diffInHours)} hours ago`;
+    case diffInMinutes >= 1:
+      return `${Math.floor(diffInMinutes)} minutes ago`;
+    default:
+      return 'Just now';
   }
 };
 
@@ -93,10 +93,4 @@ export function getUserColor(userId: string) {
 
   const colorIndex = sum % brightColors.length;
   return brightColors[colorIndex];
-}
-
-export const compactObject = (obj: Record<string, any>) => {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([_, value]) => value != null)
-  );
 }
