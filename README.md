@@ -2,6 +2,10 @@
 
 Live Docs is a Google Docs clone built with **Next.js** for the user interface, **Liveblocks** for real-time features, and styled with **TailwindCSS**. This project aims to showcase the developer's skills in a real-time environment, creating a lasting impact.
 
+## Application Link
+
+You can access the application [here](https://live-docs-puce-one.vercel.app/).
+
 ## Getting Started
 
 If you need assistance or encounter any bugs, join our active Discord community with over **34k+ members**. It's a place where people help each other out.
