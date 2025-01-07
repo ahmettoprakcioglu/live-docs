@@ -94,8 +94,9 @@ const CollaborativeRoom = ({
                 />
               )}
               {currentUserType !== 'editor' && !editing && (
-                <p className='view-onyl-tag'>View only</p>
+                <p className="view-only-tag">View only</p>
               )}
+
               {loading && <p className='text-sm text-gray-400'>Saving...</p>}
             </div>
             <div className='flex w-full flex-1 justify-end gap-2 sm:gap-3'>

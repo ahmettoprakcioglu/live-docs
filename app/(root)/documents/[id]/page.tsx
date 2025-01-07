@@ -30,7 +30,7 @@ const Document = async ({ params }: PageProps) => {
     type: room.usersAccesses[user.email].includes('room:write') ? 'editor' : 'viewer'
   }));
 
-  const currentUserType = room.usersAccesses[clerkUser.emailAddresses[0].emailAddress].includes('room:write') ? 'editor' : 'viewer';
+  const currentUserType = room.usersAccesses[clerkUser.emailAddresses[0].emailAddress]?.includes('room:write') ? 'editor' : 'viewer';
 
   return (
     <main className="flex w-full flex-col items-center">
