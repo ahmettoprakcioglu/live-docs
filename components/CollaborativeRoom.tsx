@@ -2,7 +2,7 @@
 
 import { SignedIn, UserButton } from '@clerk/nextjs'
 import { SignInButton } from '@clerk/nextjs'
-import { ClientSideSuspense, RoomProvider } from '@liveblocks/react'
+import { ClientSideSuspense, RoomProvider } from '@liveblocks/react/suspense'
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import Header from './Header'
 import { SignedOut } from '@clerk/nextjs'
@@ -16,9 +16,10 @@ import Loader from './Loader';
 
 const CollaborativeRoom = ({
   roomId,
-  roomMetadata
+  roomMetadata,
+  users,
+  currentUserType
 }: CollaborativeRoomProps) => {
-  const currentUserType = 'editor';
 
   const [documentTitle, setDocumentTitle] = useState<string>(roomMetadata.title);
   const [editing, setEditing] = useState<boolean>(false);
@@ -107,7 +108,7 @@ const CollaborativeRoom = ({
               </SignedIn>
             </div>
           </Header>
-          <Editor />
+          <Editor roomId={roomId} currentUserType={currentUserType} />
         </div>
       </ClientSideSuspense>
     </RoomProvider>
